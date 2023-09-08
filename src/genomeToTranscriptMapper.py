@@ -4,6 +4,9 @@ import numpy as np
 from typing import Tuple, List
 from sys import stderr
 from enum import Enum
+import argparse
+import csv
+import sys
 
 """ Convert coordinates or intervals from genome space to transcript space.
     
@@ -183,7 +186,39 @@ class GenomeToTranscriptMapper:
 #Use with command line
 
 def main():
-    pass 
+    parser = argparse.ArgumentParser(description="""Convert coordinates or ranges from genome to transcript space. 
+Provide a file containing your transcript exons as first argument and a sequence of ranges to convert in stdin, both in bed format.
+If not specified in the transcript bed file the strand is positive by default""")
+    parser.add_argument('transcript_bed', nargs=1, metavar='transcript.bed', help="bed file containing the transcript's exons")
+    parser.add_argument('--name', dest='transcript_name',help='Name of the transcript')
+    args = parser.parse_args() 
+
+    #Parse transcript_bed to build the GenomeToTranscriptMapper
+    ranges = []
+    strand = "+"
+    transcript_name = args.transcript_name
+    if (transcript_name is None):
+        transcript_name = "transcript"
+    with open(args.transcript_bed[0], "r", newline="") as csv_file:
+        reader = csv.reader(csv_file, delimiter="\t")
+        for row in reader:
+            if (len(row) >= 3):
+                ranges.append((int(row[1]), int(row[2])))
+                if (len(row) >= 6 and row[5]=="-"):
+                    strand = "-"
+    #Build mapper
+    mapper = GenomeToTranscriptMapper(ranges, strand)
+
+    #Stdin is read as a bed file; coordinates are converted while other informations are left 
+    for line in sys.stdin:
+        split_ = line.rstrip().split("\t")
+        if (len(split_) >= 3):
+            try:
+                converted = mapper.convert_interval_genome_to_transcript(int(split_[1]),int(split_[2]))
+                split_[1] = str(converted[0]); split_[2] = str(converted[1]); split_[0] = transcript_name
+                print("\t".join(split_))
+            except ValueError as v:
+                pass
 
 if __name__=="__main__":
     main()
