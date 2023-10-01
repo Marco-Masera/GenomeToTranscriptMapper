@@ -1,8 +1,12 @@
 # Genome to transcript mapper
 Convert coordinates or intervals from genome space to transcript space.
-    
+
+## Installation
+Via conda: conda install -c molinerislab genometotranscriptmapper
+Via pip: clone the repository, run pip install .
+
 # Usage inside python scripts
-GenomeToTranscriptMapper class can be imported inside python scripts.
+GenomeToTranscriptMapper class can be imported inside python scripts: from genomeToTranscriptMapper import GenomeToTranscriptMapper
 ## __init__:
 Initialize mapper object with the transcript informations:
 * exons_interval: list of tuples in the form (begin, end) representing exons
@@ -39,7 +43,7 @@ or, strand - reversed: (1000, 2000) => from 1999 to 1000
 The tool can be used from command line:
 * stdin: intervals to convert, in bed format
 * argument: exon intervals in bed format
-Ex: cat test/to_convert_example.bed | python src/genomeToTranscriptMapper.py test/transcript_exons_example.bed
+Ex: cat test/to_convert_example.bed | genomeToTranscriptMapper test/transcript_exons_example.bed
 
 Note regarding the bed format:
 genomeToTranscriptMapper need the first 6 fields of bed files; Other fields will be preserved in the output.

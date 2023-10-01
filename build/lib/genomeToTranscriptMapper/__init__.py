@@ -1,0 +1,2 @@
+from genomeToTranscriptMapper.genomeToTranscriptMapper import GenomeToTranscriptMapper
+__all__ = ["GenomeToTranscriptMapper"]

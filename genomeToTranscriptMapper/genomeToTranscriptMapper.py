@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 import numpy as np
 from typing import Tuple, List
 from sys import stderr
@@ -185,7 +183,7 @@ class GenomeToTranscriptMapper:
 
 #Use with command line
 
-def main():
+def run():
     parser = argparse.ArgumentParser(description="""Convert coordinates or ranges from genome to transcript space. 
 To use from command line, provide a file containing your transcript exons as first argument and a sequence of ranges to convert in stdin, both in bed format.
 If not specified in the transcript bed file the strand is positive by default""")
@@ -221,4 +219,4 @@ If not specified in the transcript bed file the strand is positive by default"""
                 pass
 
 if __name__=="__main__":
-    main()
+    run()

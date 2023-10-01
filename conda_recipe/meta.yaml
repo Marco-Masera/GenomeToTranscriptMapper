@@ -1,0 +1,23 @@
+{% set name = "genomeToTranscriptMapper" %}
+{% set version = "1.1" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+build:
+    noarch: python
+
+source: 
+  path: ../
+
+requirements:
+  host:
+    - python
+  run:
+    - python
+    - pip
+
+about:
+  home: https://github.com/Marco-Masera/GenomeToTranscriptMapper
+  summary: no
