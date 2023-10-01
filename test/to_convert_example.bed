@@ -1,2 +1,2 @@
-chr1	0	50	toConvert	0	+
-chr1	250	260	toConvert	0	+
+chr1	0	50	toConvert	0	+ additionalInfo
+chr1	250	260	toConvert	0	+ additionalInfo2

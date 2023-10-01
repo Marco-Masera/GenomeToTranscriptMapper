@@ -187,7 +187,7 @@ class GenomeToTranscriptMapper:
 
 def main():
     parser = argparse.ArgumentParser(description="""Convert coordinates or ranges from genome to transcript space. 
-Provide a file containing your transcript exons as first argument and a sequence of ranges to convert in stdin, both in bed format.
+To use from command line, provide a file containing your transcript exons as first argument and a sequence of ranges to convert in stdin, both in bed format.
 If not specified in the transcript bed file the strand is positive by default""")
     parser.add_argument('transcript_bed', nargs=1, metavar='transcript.bed', help="bed file containing the transcript's exons")
     parser.add_argument('--name', dest='transcript_name',help='Name of the transcript')
